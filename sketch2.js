@@ -1,12 +1,13 @@
 var transportapi
-
+var trainData
 var img1
 var pg
 var stretch
 var busespassed
 var busespassed = 0
 var previoustime
-
+var trainspassed
+var trainspassed = 0
 var button
 //var nowtime = hour() + ":" + minute()
 
@@ -89,16 +90,22 @@ function gotData(data) {
   //console.log(gotData);
   transportapi = data;
   var nowtime = hour() + ":" + nf(minute(),2,0);
-  if (nowtime === transportapi.departures["12"][0].aimed_departure_time) {
+  if (nowtime === transportapi.departures["214"][0].aimed_departure_time) {
     busespassed = busespassed + 1
   }
-  if (nowtime === transportapi.departures["12"][1].aimed_departure_time) {
+  if (nowtime === transportapi.departures["214"][1].aimed_departure_time) {
     busespassed = busespassed + 1
   }
-  if (nowtime === transportapi.departures["12"][2].aimed_departure_time) {
+  if (nowtime === transportapi.departures["214"][2].aimed_departure_time) {
     busespassed = busespassed + 1
   }
   console.log(nowtime);
+  var remain0 = transportapi.departures["214"][0].aimed_departure_time
+  var remain = remain0 - nowtime
+  float(remain);
+  console.log(remain)
+  console.log(remain0)
+
 }
 
 
@@ -114,43 +121,30 @@ function draw() {
   var m = minute();
   var sec = second();
   var d = day();
-  var bg = color('white');
+  var bg = color(363537);
   var bgNIGHT = color('black');
-  var accent = color('#0CCE6B');
-  var txt = color('black');
+  var accent = color('#ED7D3A');
+  var txt = color('white');
   var txtNIGHT = color('white');
+  var nowtime = hour() + ":" + nf(minute(),2,0);
+
   pg = createGraphics(width*2,450);
   //var nowtime = hour() + ":" + minute()
 
   background(bg);
-  image(dotsDAY,0,0,windowWidth,windowHeight);
+  image(dots,0,0,windowWidth,windowHeight);
   angleMode(DEGREES);
-
-
-  // this is how i am going to count the number of buses
-  // busespassed is necessary
-  //if (nowtime !== previoustime) {
-
-  //if (nowtime === transportapi.departures["12"][0].aimed_departure_time) {
-  //  busespassed = busespassed + 1
-//  }
-  //if (nowtime === transportapi.departures["12"][1].aimed_departure_time) {
-  //  busespassed = busespassed + 1
-  //}
-  //if (nowtime === transportapi.departures["12"][2].aimed_departure_time) {
-  //  busespassed = busespassed + 1
-//  }
-//}
 
   //rotate(50);
   //translate(200,-300)
   //scale(0.8);
   textFont('Exo_2');
+
   //second
   push();
   fill(accent);
   noStroke();
-  blendMode(MULTIPLY);
+  blendMode(DIFFERENCE);
   ellipse(1200,0,1000);
   rect(50,200,500,100);
   rect(200,550,width,100);
