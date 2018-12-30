@@ -17,6 +17,19 @@ function preload() {
   //loadJSON(url2, gotData2);
 }
 
+function noscroll() {
+  window.scrollTo( 0, 0 );
+}
+
+// add listener to disable scroll
+window.addEventListener('scroll', noscroll);
+
+// Remove listener to disable scroll
+window.removeEventListener('scroll', noscroll)
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 
 
 function populateStorage() {
@@ -69,6 +82,8 @@ function setup() {
   console.log(busespassed);
   //img1 = loadImage("assets/gradient1.png");
   bus12 = loadImage("assets/12BUSB.png");
+  dots = loadImage("assets/worn-dots-DESK.png");
+  dotsDAY = loadImage("assets/worn-dots-DESK-DAY.png");
   //var url = 'https://transportapi.com/v3/uk/bus/stop/490000073V///timetable.json?app_id=ca103b63&app_key=8bc99f71886bd7095a865df6dcb5c46a&group=route'
   //loadJSON(url,gotData);
 
@@ -134,14 +149,18 @@ function draw() {
   var m = minute();
   var sec = second();
   var d = day();
-  var bg = color('white')
+  var bg = color('white');
+  var bgNIGHT = color('black');
   var accent = color('#0CCE6B');
   var txt = color('black');
+  var txtNIGHT = color('white');
   pg = createGraphics(width*2,450);
   //var nowtime = hour() + ":" + minute()
 
   background(bg);
+  image(dotsDAY,0,0,windowWidth,windowHeight);
   angleMode(DEGREES);
+
 
   // this is how i am going to count the number of buses
   // busespassed is necessary
@@ -157,18 +176,23 @@ function draw() {
   //  busespassed = busespassed + 1
 //  }
 //}
-  textFont('Rubik');
+
+  //rotate(50);
+  //translate(200,-300)
+  //scale(0.8);
+  textFont('Exo_2');
   //second
   push();
   fill(accent);
   noStroke();
+  blendMode(MULTIPLY);
   ellipse(1200,0,1000);
   rect(50,200,500,100);
   rect(200,550,width,100);
   pop();
 
   push();
-  textFont('Rubik');
+  //textFont('Exo 2');
   colorMode(HSL);
   //fill(100, 100, 100);
   textSize(100);
