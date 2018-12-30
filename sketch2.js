@@ -1,19 +1,17 @@
 var transportapi
-var trainData
+
 var img1
 var pg
 var stretch
 var busespassed
 var busespassed = 0
 var previoustime
-var trainspassed
-var trainspassed = 0
+
 var button
 //var nowtime = hour() + ":" + minute()
 
 function preload() {
   loadData();
-  loadTrainData();
   //loadJSON(url2, gotData2);
 }
 
@@ -35,10 +33,8 @@ function windowResized() {
 function populateStorage() {
   console.log('populateStorage')
   localStorage.setItem('busespassed', busespassed);
-  localStorage.setItem('trainspassed', trainspassed);
 
   getBusValue();
-  getTrainValue();
 }
 
 function getBusValue() {
@@ -47,33 +43,21 @@ function getBusValue() {
   busespassed = float(busespassed);
 }
 
-function getTrainValue() {
-  console.log('getTrainValue')
-  trainspassed = localStorage.getItem('trainspassed');
-  trainspassed = float(trainspassed);
-}
 
 
 function loadData(){
   console.log('loadData');
-  var url = 'https://transportapi.com/v3/uk/bus/stop/490000073V///timetable.json?app_id=ca103b63&app_key=8bc99f71886bd7095a865df6dcb5c46a&group=route'
+  var url = 'https://transportapi.com/v3/uk/bus/stop/490010482N///timetable.json?app_id=ca103b63&app_key=8bc99f71886bd7095a865df6dcb5c46a&group=route'
   //var url2 = 'https://transportapi.com/v3/uk/train/station/EPH/live.json?app_id=ca103b63&app_key=8bc99f71886bd7095a865df6dcb5c46a&darwin=false&operator=LT&train_status=passenger'
   loadJSON(url, gotData);
   //loadJSON(url2, gotTrainData);
 }
 
-function loadTrainData(){
-  console.log('loadTrainData');
-  var url2 = 'https://transportapi.com/v3/uk/train/station/EPH/live.json?app_id=ca103b63&app_key=8bc99f71886bd7095a865df6dcb5c46a&darwin=false&operator=LT&train_status=passenger'
-  loadJSON(url2, gotTrainData);
-}
-
 function setup() {
-  if(!localStorage.getItem('busespassed','trainspassed')) {
+  if(!localStorage.getItem('busespassed')) {
     populateStorage();
   } else {
     getBusValue();
-    getTrainValue();
   }
   createCanvas(windowWidth, windowHeight);
   //var nowtime = hour() + ":" + minute()
@@ -91,20 +75,16 @@ function setup() {
   stretch = createGraphics(width,200);
   // this refreshes the data after a bit
   setInterval(loadData, 60000);
-  setInterval(loadTrainData, 60000)
   setInterval(populateStorage, 60000)
   //setInterval(gotTrainData, 30000)
   var colorset = '#FAB603'
 
-  button = createButton('submit');
-  button.position(100, 100, 65);
-  button.mousePressed(MoveToLOC);
+  //button = createButton('submit');
+  //button.position(100, 100, 65);
+  //button.mousePressed(greet);
 
 }
 
-function MoveToLOC(){
-  window.open("http://kaebiene.github.io/loc2");
-}
 function gotData(data) {
   //console.log(gotData);
   transportapi = data;
@@ -121,24 +101,6 @@ function gotData(data) {
   console.log(nowtime);
 }
 
-function gotTrainData(data) {
-  //console.log(gotTrainData);
-  trainData = data
-  var fasttime = hour() + ":" + nf(minute()+1,2,0);
-  if (fasttime === trainData.departures["all"][0].aimed_departure_time) {
-    trainspassed = trainspassed + 1
-  }
-  if (fasttime === trainData.departures["all"][1].aimed_departure_time) {
-    trainspassed = trainspassed + 1
-  }
-  if (fasttime === trainData.departures["all"][2].aimed_departure_time) {
-    trainspassed = trainspassed + 1
-  }
-  console.log(trainData.departures["all"][0].aimed_departure_time);
-  console.log(trainspassed);
-  console.log(fasttime);
-
-}
 
 //function gotWeather(weather) {
 
@@ -284,7 +246,6 @@ function draw() {
   //pg.text(transportapi.departures["12"][0].line,0,0);
   pg.text(busespassed,10, 160, 50);
   //pg.text('BUS',0,-180);
-  image(bus12,350,0,474/1.8,854/1.8);
   //filter(GRAY)
   //pg.rect(0,0,width,width);
   image(pg,0,0);
@@ -302,32 +263,4 @@ function draw() {
   //text('BUS',0,0);
   pop();
 
-
-
-  push();
-  textSize(50);
-  textStyle(BOLD);
-  translate(600,50);
-  rotate(0);
-  fill(txt)
-  text(transportapi.stop_name,0,0,100);
-  translate(0,0)
-  translate(-450,300)
-  rotate(90);
-  text(trainData.station_name,0,0,0);
-  rotate(-90);
-  translate(50,150);
-  textSize(200);
-  fill(accent)
-  text(trainspassed,0,0);
-  //translate(0,200);
-  fill(txt)
-  text('trains passed',0,150);
-  translate(400,-100)
-  fill(txt)
-  textStyle(NORMAL)
-  text(trainData.station_code,0,0);
-  pop();
-
-  //previoustime = nowtime
 }
