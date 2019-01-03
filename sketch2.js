@@ -93,7 +93,7 @@ function setup() {
 }
 
 function MoveToLOC(){
-  window.open("http://0.0.0.0:8000/index.html");
+  window.open("http://kaebiene.github.io/index.html");
 }
 
 

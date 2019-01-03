@@ -103,7 +103,7 @@ function setup() {
 }
 
 function MoveToLOC(){
-  window.open("http://0.0.0.0:8000/loc2.html");
+  window.open("http://kaebiene.github.io/loc2.html");
 }
 function gotData(data) {
   //console.log(gotData);
@@ -327,8 +327,6 @@ function draw() {
   fill(txt)
   textStyle(NORMAL)
   text(trainData.station_code,0,0);
-  translate(200,-200)
-  text(traindata.location.coordinates[0],0,0)
   pop();
 
   //previoustime = nowtime
