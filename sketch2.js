@@ -3,8 +3,8 @@ var trainData
 var img1
 var pg
 var stretch
-var busespassed
-var busespassed = 0
+var busespassed2
+var busespassed2 = 0
 var previoustime
 var trainspassed
 var trainspassed = 0
@@ -33,15 +33,15 @@ function windowResized() {
 
 function populateStorage() {
   console.log('populateStorage')
-  localStorage.setItem('busespassed', busespassed);
+  localStorage.setItem('busespassed2', busespassed2);
 
   getBusValue();
 }
 
 function getBusValue() {
   console.log('getBusValue')
-  busespassed = localStorage.getItem('busespassed');
-  busespassed = float(busespassed);
+  busespassed = localStorage.getItem('busespassed2');
+  busespassed = float(busespassed2);
 }
 
 
@@ -55,7 +55,7 @@ function loadData(){
 }
 
 function setup() {
-  if(!localStorage.getItem('busespassed')) {
+  if(!localStorage.getItem('busespassed2')) {
     populateStorage();
   } else {
     getBusValue();
@@ -64,7 +64,7 @@ function setup() {
   //var nowtime = hour() + ":" + minute()
   //var busespassed = 0
 
-  console.log(busespassed);
+  console.log(busespassed2);
   //img1 = loadImage("assets/gradient1.png");
   bus12 = loadImage("assets/12BUSB.png");
   dots = loadImage("assets/worn-dots-DESK.png");
@@ -80,24 +80,35 @@ function setup() {
   //setInterval(gotTrainData, 30000)
   var colorset = '#FAB603'
 
+
+  button = createButton('location 1');
+  button.position(1200, 20);
+  button.mousePressed(MoveToLOC);
+
+
   //button = createButton('submit');
   //button.position(100, 100, 65);
   //button.mousePressed(greet);
 
 }
 
+function MoveToLOC(){
+  window.open("http://0.0.0.0:8000/index.html");
+}
+
+
 function gotData(data) {
   //console.log(gotData);
   transportapi = data;
   var nowtime = hour() + ":" + nf(minute(),2,0);
   if (nowtime === transportapi.departures["214"][0].aimed_departure_time) {
-    busespassed = busespassed + 1
+    busespassed2 = busespassed2 + 1
   }
   if (nowtime === transportapi.departures["214"][1].aimed_departure_time) {
-    busespassed = busespassed + 1
+    busespassed2 = busespassed2 + 1
   }
   if (nowtime === transportapi.departures["214"][2].aimed_departure_time) {
-    busespassed = busespassed + 1
+    busespassed2 = busespassed2 + 1
   }
   console.log(nowtime);
   var remain0 = transportapi.departures["214"][0].aimed_departure_time
@@ -235,10 +246,11 @@ function draw() {
   pg.smooth();
   pg.textSize(200);
   pg.textStyle(BOLD);
-  pg.textFont('Rubik');
+  pg.textFont('Exo2');
+  pg.textStyle(NORMAL)
   pg.fill(accent);
   //pg.text(transportapi.departures["12"][0].line,0,0);
-  pg.text(busespassed,10, 160, 50);
+  pg.text(busespassed2,10, 160, 50);
   //pg.text('BUS',0,-180);
   //filter(GRAY)
   //pg.rect(0,0,width,width);
@@ -247,14 +259,28 @@ function draw() {
   //rotate(90);
   textSize(200);
   textStyle(BOLD);
-  textFont('Rubik');
+  textFont('Exo 2');
   fill(txt);
-  //img1.mask(pg);
-  //image(img1, 0, 0, width*2,400);
-  translate(760,20);
+  translate(20,350);
   rotate(90);
   textStyle(NORMAL)
-  //text('BUS',0,0);
+  text('BUS',0,0);
+  rotate(-90)
+  translate(350,-100);
+  text(transportapi.location.coordinates[0],0,0);
+  translate(0,-180)
+  text(transportapi.stop_name,0,0);
+  translate(0,200)
+  rotate(90)
+  text(transportapi.location.coordinates[1],0,0);
+  rotate(-90)
+  translate(200,200)
+  textStyle(NORMAL)
+  text(transportapi.indicator,0,0);
+  translate(0,150)
+  textSize(20);
+  text(transportapi.locality,0,0);
+
   pop();
 
 }

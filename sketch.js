@@ -96,14 +96,14 @@ function setup() {
   //setInterval(gotTrainData, 30000)
   var colorset = '#FAB603'
 
-  button = createButton('submit');
-  button.position(100, 100, 65);
+  button = createButton('location 2');
+  button.position(1200, 20);
   button.mousePressed(MoveToLOC);
 
 }
 
 function MoveToLOC(){
-  window.open("http://kaebiene.github.io/loc2");
+  window.open("http://0.0.0.0:8000/loc2.html");
 }
 function gotData(data) {
   //console.log(gotData);
@@ -183,7 +183,7 @@ function draw() {
   //rotate(50);
   //translate(200,-300)
   //scale(0.8);
-  textFont('Exo_2');
+  textFont('Exo2');
   //second
   push();
   fill(accent);
@@ -279,7 +279,7 @@ function draw() {
   pg.smooth();
   pg.textSize(200);
   pg.textStyle(BOLD);
-  pg.textFont('Rubik');
+  pg.textFont('Exo2');
   pg.fill(accent);
   //pg.text(transportapi.departures["12"][0].line,0,0);
   pg.text(busespassed,10, 160, 50);
@@ -292,7 +292,7 @@ function draw() {
   //rotate(90);
   textSize(200);
   textStyle(BOLD);
-  textFont('Rubik');
+  textFont('Exo2');
   fill(txt);
   //img1.mask(pg);
   //image(img1, 0, 0, width*2,400);
@@ -327,6 +327,8 @@ function draw() {
   fill(txt)
   textStyle(NORMAL)
   text(trainData.station_code,0,0);
+  translate(200,-200)
+  text(traindata.location.coordinates[0],0,0)
   pop();
 
   //previoustime = nowtime
