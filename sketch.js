@@ -14,6 +14,7 @@ var button
 function preload() {
   loadData();
   loadTrainData();
+  //loadFont('https://fonts.googleapis.com/css?family=Exo+2:400,700');
   //loadJSON(url2, gotData2);
 }
 
@@ -76,6 +77,7 @@ function setup() {
     getTrainValue();
   }
   createCanvas(windowWidth, windowHeight);
+  pg = createGraphics(width*2,450);
   //var nowtime = hour() + ":" + minute()
   //var busespassed = 0
 
@@ -88,7 +90,7 @@ function setup() {
   //loadJSON(url,gotData);
 
   //console.log(transportapi.departures["12"][0].line);
-  stretch = createGraphics(width,200);
+  //stretch = createGraphics(width,200);
   // this refreshes the data after a bit
   setInterval(loadData, 60000);
   setInterval(loadTrainData, 60000)
@@ -99,6 +101,8 @@ function setup() {
   button = createButton('location 2');
   button.position(1200, 20);
   button.mousePressed(MoveToLOC);
+
+
 
 }
 
@@ -157,7 +161,7 @@ function draw() {
   var accent = color('#0CCE6B');
   var txt = color('black');
   var txtNIGHT = color('white');
-  pg = createGraphics(width*2,450);
+
   //var nowtime = hour() + ":" + minute()
 
   background(bg);

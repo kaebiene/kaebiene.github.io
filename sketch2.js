@@ -61,6 +61,7 @@ function setup() {
     getBusValue();
   }
   createCanvas(windowWidth, windowHeight);
+  pg = createGraphics(width*2,450);
   //var nowtime = hour() + ":" + minute()
   //var busespassed = 0
 
@@ -73,7 +74,7 @@ function setup() {
   //loadJSON(url,gotData);
 
   //console.log(transportapi.departures["12"][0].line);
-  stretch = createGraphics(width,200);
+  //stretch = createGraphics(width,200);
   // this refreshes the data after a bit
   setInterval(loadData, 60000);
   setInterval(populateStorage, 60000)
@@ -138,8 +139,6 @@ function draw() {
   var txt = color('white');
   var txtNIGHT = color('white');
   var nowtime = hour() + ":" + nf(minute(),2,0);
-
-  pg = createGraphics(width*2,450);
   //var nowtime = hour() + ":" + minute()
 
   background(bg);
