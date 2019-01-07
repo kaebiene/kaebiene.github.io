@@ -148,7 +148,7 @@ function draw() {
   //rotate(50);
   //translate(200,-300)
   //scale(0.8);
-  textFont('Exo 2');
+  textFont('Exo');
 
   //second
   push();
@@ -245,7 +245,7 @@ function draw() {
   pg.smooth();
   pg.textSize(200);
   pg.textStyle(BOLD);
-  pg.textFont('Exo 2');
+  pg.textFont('Exo');
   pg.textStyle(NORMAL)
   pg.fill(accent);
   //pg.text(transportapi.departures["12"][0].line,0,0);
@@ -258,7 +258,7 @@ function draw() {
   //rotate(90);
   textSize(200);
   textStyle(BOLD);
-  textFont('Exo 2');
+  textFont('Exo');
   fill(txt);
   translate(20,350);
   rotate(90);
@@ -266,6 +266,7 @@ function draw() {
   text('BUS',0,0);
   rotate(-90)
   translate(350,-100);
+  textFont('Exo');
   text(transportapi.location.coordinates[0],0,0);
   translate(0,-180)
   text(transportapi.stop_name,0,0);
@@ -277,7 +278,7 @@ function draw() {
   textStyle(NORMAL)
   text(transportapi.indicator,0,0);
   translate(0,150)
-  textSize(20);
+  textSize(200);
   text(transportapi.locality,0,0);
 
   pop();
