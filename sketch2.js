@@ -148,7 +148,7 @@ function draw() {
   //rotate(50);
   //translate(200,-300)
   //scale(0.8);
-  textFont('Exo_2');
+  textFont('Exo 2');
 
   //second
   push();
@@ -245,7 +245,7 @@ function draw() {
   pg.smooth();
   pg.textSize(200);
   pg.textStyle(BOLD);
-  pg.textFont('Exo2');
+  pg.textFont('Exo 2');
   pg.textStyle(NORMAL)
   pg.fill(accent);
   //pg.text(transportapi.departures["12"][0].line,0,0);
