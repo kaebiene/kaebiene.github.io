@@ -158,7 +158,7 @@ function draw() {
   var d = day();
   var bg = color('white');
   var bgNIGHT = color('black');
-  var accent = color('#0CCE6B');
+  var accent = color('#0D91D8');
   var txt = color('black');
   var txtNIGHT = color('white');
 
