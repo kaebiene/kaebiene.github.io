@@ -9,6 +9,10 @@ var previoustime
 var trainspassed
 var trainspassed = 0
 var button
+var textInfo = {
+	opacity: 0
+};
+var textTween
 //var nowtime = hour() + ":" + minute()
 
 function preload() {
@@ -89,6 +93,7 @@ function setup() {
   setInterval(loadData, 60000);
   setInterval(loadTrainData, 60000)
   setInterval(populateStorage, 60000)
+  //setInterval(fadeOut, 10000);
   var colorset = '#FAB603'
 
   button = createButton('location 2');
@@ -147,9 +152,11 @@ function draw() {
   var bg = color('white');
   var bgNIGHT = color('black');
   var accent = color('#0D91D8');
-  var txt = color('black');
+  var txtOLD = color('black');
+  var txt = color(0,0,0,textInfo.opacity)
   var txtNIGHT = color('white');
   var move = second() * 2
+  TWEEN.update(millis());
 
 
 
@@ -158,7 +165,7 @@ function draw() {
   //tint(255, 60);
   image(dotsDAY, 0, 0, windowWidth, windowHeight);
   angleMode(DEGREES);
-  noTint();
+  //noTint();
 
 
   textFont('Exo');
@@ -171,6 +178,13 @@ function draw() {
   //pop();
 
 //angleMode(DEGREES);
+
+  //section rectangles
+  //rect(200,340,1100,380);
+  //stroke(0,0,0,126);
+  //fill(255,255,255,200);
+
+
 
   push();
   fill(accent);
@@ -223,6 +237,7 @@ function draw() {
 
 
   push();
+  noStroke();
   textSize(200);
   textStyle(BOLD);
   colorMode(HSL);
@@ -237,6 +252,7 @@ function draw() {
 
 
   push();
+  pg.noStroke();
   pg.clear();
   pg.smooth();
   pg.textSize(200);
@@ -244,7 +260,7 @@ function draw() {
   pg.textFont('Exo');
   pg.fill(accent);
   pg.text(busespassed, 10, 160, 50);
-  image(bus12, 350, 0, 474 / 1.8, 854 / 1.8);
+  //image(bus12, 350, 0, 474 / 1.8, 854 / 1.8);
   image(pg, 0, 0);
   textSize(200);
   textStyle(BOLD);
@@ -258,6 +274,7 @@ function draw() {
 
 
   push();
+  noStroke();
   textSize(50);
   textStyle(BOLD);
   translate(600, 50);
@@ -275,11 +292,28 @@ function draw() {
   text(trainspassed, 0, 0);
   fill(txt)
   text('trains passed', 0, 150);
-  translate(400, -100)
+  translate(700, 0)
   fill(txt)
   textStyle(NORMAL)
   text(trainData.station_code, 0, 0);
   pop();
 
   //previoustime = nowtime
+}
+
+function mousePressed(){
+	console.log('tween...');
+	var t = new TWEEN.Tween( textInfo )
+				.to({ opacity: 255 }, 500)
+   .easing(TWEEN.Easing.Quadratic.Out)
+  .onComplete (fadeOut)
+      .start();
+}
+
+function fadeOut(){
+    var t = new TWEEN.Tween( textInfo )
+      				.to({ opacity: 0 }, 500)
+         .easing(TWEEN.Easing.Quadratic.Out)
+         .delay(10000)
+      	.start();
 }
