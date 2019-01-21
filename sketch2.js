@@ -243,7 +243,7 @@ function draw() {
   //image(dots,0,0,windowWidth,windowHeight);
   angleMode(DEGREES);
 
-  if (7 > h && h < 20) {
+  if (7 < h && h < 20) {
   		image(dotsDAY, 0, 0, windowWidth, windowHeight);
   		var accent = color(22, 219, 101, shapeInfo.opacity);
   		var txt = color(255,255,255,textInfo.opacity)
@@ -273,7 +273,7 @@ function draw() {
   push();
   fill(accent);
   noStroke();
-  if (7 > h && h < 20) {
+  if (7 < h && h < 20) {
   blendMode(MULTIPLY);
 } else {
   blendMode(SCREEN)
